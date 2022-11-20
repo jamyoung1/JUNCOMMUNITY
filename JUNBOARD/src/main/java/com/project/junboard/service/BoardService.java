@@ -46,8 +46,10 @@ public class BoardService {
     // 서비스 클래스에서 필수로 사용되어야 하는 어노테이션
     // 실행(begin), 종료(commit), 예외(rollback)를 자동으로 처리
     public Long update(final Long id, final BoardRequestDto params) {
-        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
-
+           Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        // Optional -> 반복적인 NULL 처리를 피하기 위해 사용되는 클래스
+        // orElseThrows() -> Optional 클래스에 포함 된 메서드
+        //                   Entity 조회, 예외 처리를 한 줄로 처리할 수 있는 메서드
         entity.update(params.getTitle(), params.getContent(), params.getWriter());
         return id;
         // 해당 메서드의 실행이 종료(commit)되면 update 쿼리가 자동으로 실행된다.
