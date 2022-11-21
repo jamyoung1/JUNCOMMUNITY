@@ -11,7 +11,7 @@
             <option value="content">내용</option>
             <option value="writer">작성자</option>
         </select>
-        <input type="text" id="searchKeyword" class="form-control" placeholder="키워드를 입력해 주세요." style="width: 300px;" />
+        <input type="text" id="searchKeyword" class="form-control" placeholder="키워드를 입력해 주세요." style="width: 300px;"/>
         <button type="button" class="btn btn-primary">
             <span aria-hidden="true" class="glyphicon glyphicon-search"></span>
         </button>
@@ -51,20 +51,16 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
-        /**
-         * 페이지 로딩 시점에 실행되는 함수
-         */
+        /*  페이지 로딩 시점에 실행되는 함수  */
         window.onload = () => {
 
             findAll();
         }
 
-        /**
-         * 게시글 리스트 조회
-         */
+        /* 게시글 리스트 조회 */
         function findAll() {
 
-            fetch('/api/boards').then(response => {
+            fetch('/api/boards?deleteYn=N').then(response => {
                 if (response.ok) {
                     return response.json();
                 }
@@ -79,7 +75,7 @@
 							<tr>
     							<td>${json.length - idx}</td>
     							<td class="text-left">
-    								<a href="javascript: void(0);">${obj.title}</a>
+    								<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
     							</td>
     							<td>${obj.writer}</td>
     							<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
@@ -92,6 +88,12 @@
                 document.getElementById('list').innerHTML = html;
             });
         }
+
+        /* 게시글 조회 */
+        function goView(id) {
+            location.href = `/board/view/${id}`;
+        }
+
 
         /*]]>*/
     </script>
