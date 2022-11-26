@@ -13,8 +13,10 @@ import java.util.List;
 public interface BoardMapper {
 
     /** 게시글 수 조회 */
+    // 검색 조건의 유무에 따라, 테이블에서 데이터 수를 카운팅 한다.
     int count(final CommonParams params);
 
     /** 게시글 리스트 조회 */
+    // 검색 조건의 유무를 기준으로 게시글 데이터를 조회한다.
     List<BoardResponseDto> findAll(final CommonParams params);
 }
